@@ -35,7 +35,12 @@ std::vector<std::wstring> Tokenize(std::wstring sentence, Dictionary* dictionary
 
 				We'll do the same if we've found a valid word.
 			*/
-			if (length == 1 || freq != 0) break;
+			if (length == 1)
+			{
+				probableWord = L"␕";
+				break;
+			}
+			else if (freq != 0) break;
 
 			/*
 				If this isn't a valid word, let us try a

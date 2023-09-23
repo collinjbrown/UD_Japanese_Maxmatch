@@ -41,3 +41,8 @@ std::wstring Dictionary::GetSentence(unsigned int index)
 	if (index >= sentences.size()) return L"";
 	return sentences[index];
 }
+
+unsigned int Dictionary::GetSentenceCount()
+{
+	return sentences.size();
+}

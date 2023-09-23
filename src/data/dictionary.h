@@ -42,6 +42,7 @@ public:
 
 	void			AddSentence(std::wstring sentence);
 	std::wstring	GetSentence(unsigned int index);
+	unsigned int	GetSentenceCount();
 
 	unsigned int	GetLongestLength() { return longestWord; }
 };
