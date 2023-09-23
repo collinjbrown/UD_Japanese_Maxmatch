@@ -1,4 +1,4 @@
-#ifndef DICTIONARY_H
+﻿#ifndef DICTIONARY_H
 #define DICTIONARY_H
 
 #include <string>
@@ -15,6 +15,11 @@ private:
 	/*--------------------------------*/
 	unsigned int	size = 0;
 	unsigned int	maxSize = 20000;
+
+	/*--------------------------------*/
+	/* Word Stats                     */
+	/*--------------------------------*/
+	unsigned int	longestWord = 0;
 
 	/*--------------------------------*/
 	/* Sentences                      */
@@ -36,6 +41,9 @@ public:
 	unsigned int	GetFrequency(std::wstring word);
 
 	void			AddSentence(std::wstring sentence);
+	std::wstring	GetSentence(unsigned int index);
+
+	unsigned int	GetLongestLength() { return longestWord; }
 };
 
 #endif

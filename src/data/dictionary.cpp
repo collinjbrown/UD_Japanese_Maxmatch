@@ -1,4 +1,5 @@
-#include "dictionary.h"
+﻿#include "dictionary.h"
+#include <iostream>
 
 /*------------------------------------------*/
 /* Good Ol' Diccionario                     */
@@ -16,6 +17,8 @@ void Dictionary::AddWord(std::wstring word)
 
 	size++;
 	frequencyMap.emplace(word, 1);
+
+	if (word.size() > longestWord) longestWord = word.size();
 }
 
 unsigned int Dictionary::GetFrequency(std::wstring word)
@@ -31,4 +34,10 @@ unsigned int Dictionary::GetFrequency(std::wstring word)
 void Dictionary::AddSentence(std::wstring sentence)
 {
 	sentences.push_back(sentence);
+}
+
+std::wstring Dictionary::GetSentence(unsigned int index)
+{
+	if (index >= sentences.size()) return L"";
+	return sentences[index];
 }

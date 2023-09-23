@@ -1,4 +1,4 @@
-#include "filehandling.h"
+﻿#include "filehandling.h"
 
 std::wstringstream ReadFile(std::string path)
 {

@@ -9,6 +9,8 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(BASE_SRCS
     "src/data/dictionary.cpp"
     "src/data/dictionary.h"
+    "src/data/maxmatch.cpp"
+    "src/data/maxmatch.h"
     "src/utility/filehandling.cpp"
     "src/utility/filehandling.h"
     "src/utility/parse.cpp"
