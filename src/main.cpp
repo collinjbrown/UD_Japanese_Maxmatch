@@ -3,6 +3,7 @@
 */
 
 #include <iostream>
+#include <chrono>
 
 #include "data/maxmatch.h"
 #include "utility/filehandling.h"
@@ -10,6 +11,8 @@
 
 void main()
 {
+	auto start = std::chrono::high_resolution_clock::now();
+
 	Dictionary* testDictionary = new Dictionary();
 	Dictionary* trainDictionary = new Dictionary();
 
@@ -30,8 +33,11 @@ void main()
 
 	for (int i = 0; i < sentenceCount; i++)
 	{
-		std::wstring ref = testDictionary->GetSentence(i);
+		std::wstring ref = L"";
 		std::wstring hyp = L"";
+
+		std::wstring fullref = testDictionary->GetSentence(i);
+		for (int i = 0; i < fullref.size(); i++) if (fullref[i] != L' ') ref += fullref[i];
 
 		std::vector<std::wstring> out = Tokenize(ref, trainDictionary);
 
@@ -42,7 +48,7 @@ void main()
 		}
 
 		hypothesis += hyp;
-		reference += ref;
+		reference += fullref;
 
 		if (i < sentenceCount - 1)
 		{
@@ -53,4 +59,9 @@ void main()
 
 	WriteFile("datasets/output/reference.txt", reference);
 	WriteFile("datasets/output/hypothesis.txt", hypothesis);
+
+	auto stop = std::chrono::high_resolution_clock::now();
+	auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+
+	std::wcout << L"Execution took " << duration.count() << L" microseconds.\n";
 }

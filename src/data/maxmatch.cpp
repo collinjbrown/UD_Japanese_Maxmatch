@@ -31,16 +31,18 @@ std::vector<std::wstring> Tokenize(std::wstring sentence, Dictionary* dictionary
 			/*
 				If we have exhausted our potential words
 				and not found any valid ones, we'll just break
-				with one character.
+				with one invalid character.
 
 				We'll do the same if we've found a valid word.
 			*/
-			if (length == 1)
+			if (length == 1 && freq == 0)
 			{
 				probableWord = L"␕";
+			}
+			else if (freq != 0)
+			{
 				break;
 			}
-			else if (freq != 0) break;
 
 			/*
 				If this isn't a valid word, let us try a
@@ -50,10 +52,20 @@ std::vector<std::wstring> Tokenize(std::wstring sentence, Dictionary* dictionary
 		}
 
 		/*
+			If we can't get a valid word, we just skip it.
+		*/
+		if (probableWord == L"␕")
+		{
+			iter += 1;
+			continue;
+		}
+
+		/*
 			Now, we add the size of our probable word to the
 			iterator and throw the word in our vector and
 			call it a day.
 		*/
+
 		words.push_back(probableWord);
 		iter += probableWord.size();
 	}

@@ -10,6 +10,7 @@ void Parse(std::wstringstream input, Dictionary* dictionary)
 		While there is still text to iterate over.
 	*/
 	std::wstring line;
+	std::vector<std::wstring> wordbank;
 	while (std::getline(input, line))
 	{
 		/*
@@ -24,11 +25,18 @@ void Parse(std::wstringstream input, Dictionary* dictionary)
 			our line starts with "# text" but it works
 			so I'm not going to complain.
 		*/
-		if (line[0] == L'#')
+		if (line[0] == L'#' && wordbank.size() > 0)
 		{
 			std::wstring sentence = L"";
-			for (int i = 9; i < line.size(); i++) sentence += line[i];
+
+			for (int i = 0; i < wordbank.size(); i++)
+			{
+				sentence += wordbank[i];
+				if (i < wordbank.size() - 1) sentence += L" ";
+			}
+
 			dictionary->AddSentence(sentence);
+			wordbank.clear();
 			continue;
 		}
 
@@ -57,5 +65,6 @@ void Parse(std::wstringstream input, Dictionary* dictionary)
 
 		// And now we add it to the dictionary.
 		dictionary->AddWord(word);
+		wordbank.push_back(word);
 	}
 }
